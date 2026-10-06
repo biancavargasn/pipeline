@@ -118,9 +118,9 @@ jobs:
   needs: build
   steps:
     - uses: actions/checkout@v4
- 
-    - name: Trivy - bloqueia em HIGH/CRITICAL
-      uses: aquasecurity/trivy-action@v0.36.0
+
+     - name: Trivy - bloqueia em HIGH/CRITICAL
+      uses: aquasecurity/trivy-action@master
       continue-on-error: true
       with:
         scan-type: 'fs'
@@ -129,10 +129,10 @@ jobs:
         exit-code: '0'
         format: 'sarif'
         output: 'trivy-fs-results.sarif'
- 
+
     - name: Trivy - relatorio informativo (nao bloqueia)
       if: always()
-      uses: aquasecurity/trivy-action@v0.36.0
+      uses: aquasecurity/trivy-action@master
       continue-on-error: true
       with:
         scan-type: 'fs'
@@ -140,7 +140,7 @@ jobs:
         severity: 'LOW,MEDIUM'
         exit-code: '0'
         format: 'table'
- 
+
     - name: Publicar relatorio do Trivy
       if: always()
       uses: actions/upload-artifact@v4
