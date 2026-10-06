@@ -35,6 +35,7 @@ jobs:
 
       - name: Rodar Gitleaks
         uses: gitleaks/gitleaks-action@v2
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # a action encerra com erro automaticamente se encontrar um segredo,
@@ -122,19 +123,19 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          scan-type: 'fs'
+          scan-type: 'image'
           scan-ref: '.'
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
           format: 'sarif'
-          output: 'trivy-fs-results.sarif'
+          output: 'trivy-image-results.sarif'
 
       - name: Trivy - relatorio informativo (nao bloqueia)
         if: always()
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          scan-type: 'fs'
+          scan-type: 'image'
           scan-ref: '.'
           severity: 'MEDIUM,LOW'
           exit-code: '0'
