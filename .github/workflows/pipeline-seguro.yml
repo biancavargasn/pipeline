@@ -182,7 +182,7 @@ package:
   # ESTACAO 6 - SCAN DA IMAGEM (Trivy)
   # Audita a imagem publicada (SO base + camadas).
   # ============================================================
-  scan-imagem-trivy:
+scan-imagem-trivy:
     name: "6 - Scan da Imagem (Trivy)"
     runs-on: ubuntu-latest
     needs: package
